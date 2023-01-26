@@ -6,6 +6,7 @@
 .pnp.js
 .prettierignore
 .prettierrc
+.env
 
 # testing
 /coverage

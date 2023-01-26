@@ -32,6 +32,30 @@ const getTodoSteps = async (req, res) => {
   }
 };
 
+const getTodoAndSteps = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const todo = await pool.query(
+      `SELECT * FROM steps LEFT JOIN todos ON steps.todo_id = todos.id where todo_id=$1;`,
+      [id]
+    );
+    res.json(todo.rows);
+  } catch (err) {
+    res.status(500).send("Something went wrong");
+  }
+};
+
+const getTodosAndSteps = async (req, res) => {
+  try {
+    const caca = await pool.query(
+      `SELECT * FROM steps LEFT JOIN todos ON steps.todo_id = todos.id ;`
+    );
+    res.json(caca.rows);
+  } catch (err) {
+    res.status(500).send("Something went wrong");
+  }
+};
+
 const createTodo = async (req, res) => {
   try {
     const { value, status, deadline, priority, created_at } = req.body;
@@ -78,6 +102,8 @@ module.exports = {
   getTodos,
   getTodo,
   getTodoSteps,
+  getTodoAndSteps,
+  getTodosAndSteps,
   createTodo,
   updateTodo,
   deleteTodo,
