@@ -7,7 +7,7 @@ const { stepRouter } = require("./Routes/step");
 
 const app = express();
 
-const PORT = process.env.port;
+const PORT = 4040;
 
 app.use(cors());
 

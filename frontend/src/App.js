@@ -22,8 +22,9 @@ function App() {
 
   return (
     <div className="App">
+
       <h1>ToDoList🤓</h1>
-      <Form />
+      <Form setTodos={setTodos} />
       {todos.map((todo) => {
         return (
           <div key={todo.id}>
