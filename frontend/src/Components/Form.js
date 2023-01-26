@@ -3,7 +3,7 @@ import { Button } from "bootstrap";
 import React from "react";
 import { useState } from "react";
 
-function Form() {
+function Form({setTodos}) {
   const [value, setValue] = useState("");
 
   function handleChange(event) {
@@ -15,7 +15,10 @@ function Form() {
   function clickHander(event) {
     event.preventDefault();
     axios.post("http://localhost:4040/todos", postData).then((res) => {
-      console.log(res);
+      setTodos((todos)=> {
+        return [...todos, res.data]
+      })
+      
     });
   }
 
