@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 
-export default function Steps({ step, setSteps, todoid, step_id }) {
+export default function Steps({ steps, step, setSteps, todoid, step_id }) {
   const [isClicked, setIsClicked] = useState(false);
   const [value, setValue] = useState(`${step.description}`);
   const [number, setNumber] = useState(`${step.step}`);
@@ -30,9 +30,6 @@ export default function Steps({ step, setSteps, todoid, step_id }) {
       });
     });
   }
-  console.log(value);
-  console.log(number);
-  console.log(todoid);
 
   const handleClickDone = () => {
     setIsClicked(!isClicked);
@@ -41,6 +38,13 @@ export default function Steps({ step, setSteps, todoid, step_id }) {
   const handleBlur = () => {
     putStep();
   };
+
+  function deleteStep(id, e) {
+    axios.delete(`http://localhost:4040/steps/${id}`).then((res) => {
+      const delsteps = steps.filter((step) => step.id !== id);
+      setSteps(delsteps);
+    });
+  }
 
   return (
     <div>
@@ -59,7 +63,9 @@ export default function Steps({ step, setSteps, todoid, step_id }) {
       </div>
       <div>
         <button onClick={handleClickDone}>Done</button>
-        <button>Delete</button>
+        <button onClick={handleClickEdit}>{editButton}</button>
+        <button onClick={(e) => deleteStep(step.id, e)}>Delete</button>
+
       </div>
     </div>
   );

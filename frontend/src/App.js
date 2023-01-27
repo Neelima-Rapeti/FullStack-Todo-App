@@ -31,8 +31,9 @@ function App() {
           return (
             <Todo
               todo={todo}
-              setTodos={setTodos}
               todo_id={todo.id}
+              setTodos={setTodos}
+              todos={todos}
               key={todo.id}
             />
           );
