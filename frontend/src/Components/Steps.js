@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ContentEditable from "react-contenteditable";
 
-export default function Steps({ step, setSteps, todoid, step_id }) {
+export default function Steps({ steps, step, setSteps, todoid, step_id }) {
   const [isClicked, setIsClicked] = useState(false);
   const [editButton, setEditText] = useState("edit");
   const [value, setValue] = useState("");
@@ -32,9 +32,7 @@ export default function Steps({ step, setSteps, todoid, step_id }) {
       });
     });
   }
-  console.log(value);
-  console.log(number);
-  console.log(todoid);
+
   const handleClickDone = () => {
     setIsClicked(!isClicked);
   };
@@ -47,6 +45,13 @@ export default function Steps({ step, setSteps, todoid, step_id }) {
       setEditText("edit");
     }
   };
+
+  function deleteStep(id, e) {
+    axios.delete(`http://localhost:4040/steps/${id}`).then((res) => {
+      const delsteps = steps.filter((step) => step.id !== id);
+      setSteps(delsteps);
+    });
+  }
 
   return (
     <div>
@@ -65,7 +70,7 @@ export default function Steps({ step, setSteps, todoid, step_id }) {
       <div>
         <button onClick={handleClickDone}>Done</button>
         <button onClick={handleClickEdit}>{editButton}</button>
-        <button>Delete</button>
+        <button onClick={(e) => deleteStep(step.id, e)}>Delete</button>
       </div>
     </div>
   );

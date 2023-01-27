@@ -29,7 +29,14 @@ function App() {
       </div>
       <div>
         {todos.map((todo) => {
-          return <Todo todo={todo} todo_id={todo.id} />;
+          return (
+            <Todo
+              todo={todo}
+              todo_id={todo.id}
+              setTodos={setTodos}
+              todos={todos}
+            />
+          );
         })}
       </div>
     </div>
