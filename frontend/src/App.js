@@ -18,7 +18,7 @@ function App() {
       }
     };
     data();
-  }, [setTodos]);
+  }, []);
 
   return (
     <div className="App">

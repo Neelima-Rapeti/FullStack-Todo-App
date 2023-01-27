@@ -51,7 +51,7 @@ export default function Todo({ todo, setTodos, todo_id }) {
       }
     };
     data();
-  }, [setSteps]);
+  }, []);
 
   return (
     <div>
