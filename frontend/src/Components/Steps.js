@@ -1,20 +1,18 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-import ContentEditable from "react-contenteditable";
 
 export default function Steps({ step, setSteps, todoid, step_id }) {
   const [isClicked, setIsClicked] = useState(false);
-  const [editButton, setEditText] = useState("edit");
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(`${step.description}`);
   const [number, setNumber] = useState(`${step.step}`);
 
   function handleChange(e) {
     setValue(e.target.innerHTML);
   }
 
-  function handleChangeNum(event) {
-    setNumber(event.target.innerHTML);
+  function handleChangeNum(e) {
+    setNumber(e.target.innerHTML);
   }
 
   const putData = {
@@ -35,28 +33,25 @@ export default function Steps({ step, setSteps, todoid, step_id }) {
   console.log(value);
   console.log(number);
   console.log(todoid);
+
   const handleClickDone = () => {
     setIsClicked(!isClicked);
   };
 
-  const handleClickEdit = () => {
-    if (editButton === "edit") {
-      setEditText("save");
-    } else {
-      putStep();
-      setEditText("edit");
-    }
+  const handleBlur = () => {
+    putStep();
   };
 
   return (
     <div>
       <div key={step.id}>
-        <div contentEditable onInput={handleChangeNum}>
-          {step.step}.
+        <div contentEditable onInput={handleChangeNum} onBlur={handleBlur}>
+          {step.step}
         </div>
         <div
           contentEditable
           onInput={handleChange}
+          onBlur={handleBlur}
           style={{ textDecorationLine: isClicked ? "line-through" : "none" }}
         >
           {step.description}
@@ -64,7 +59,6 @@ export default function Steps({ step, setSteps, todoid, step_id }) {
       </div>
       <div>
         <button onClick={handleClickDone}>Done</button>
-        <button onClick={handleClickEdit}>{editButton}</button>
         <button>Delete</button>
       </div>
     </div>

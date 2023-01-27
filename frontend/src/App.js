@@ -12,7 +12,6 @@ function App() {
     const data = async () => {
       try {
         const response = await axios.get("http://localhost:4040/todos");
-
         setTodos(response.data);
       } catch (err) {
         console.log(err);
@@ -29,7 +28,14 @@ function App() {
       </div>
       <div>
         {todos.map((todo) => {
-          return <Todo todo={todo} todo_id={todo.id} />;
+          return (
+            <Todo
+              todo={todo}
+              setTodos={setTodos}
+              todo_id={todo.id}
+              key={todo.id}
+            />
+          );
         })}
       </div>
     </div>
