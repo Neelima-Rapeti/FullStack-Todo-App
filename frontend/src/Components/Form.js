@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Button } from "bootstrap";
 import React from "react";
 import { useState } from "react";
 
@@ -13,7 +12,6 @@ function Form({ setTodos }) {
   const postData = { value, status: false };
 
   function clickHander(event) {
-    event.preventDefault();
     axios.post("http://localhost:4040/todos", postData).then((res) => {
       setTodos((todos) => {
         return [...todos, res.data];
