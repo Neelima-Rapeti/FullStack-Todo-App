@@ -5,9 +5,7 @@ import axios from "axios";
 import StepForm from "./StepForm";
 import { ArrowDownCircleFill } from "react-bootstrap-icons";
 
-
 export default function Todo({ todo, todo_id, setTodos, todos }) {
-
   const [isClicked, setIsClicked] = useState(false);
   const [value, setValue] = useState(`${todo.value}`);
   const [steps, setSteps] = useState([]);
@@ -63,17 +61,14 @@ export default function Todo({ todo, todo_id, setTodos, todos }) {
   }
   return (
     <div>
-
-      <div key={todo.id}>
-        <h5 onClick={handleClick}>{todo.value}</h5>
-        <button onClick={(e) => deleteTodo(todo.id, e)}>Delete</button>
-
       <div contentEditable onInput={handleChange} onBlur={handleBlur}>
         {todo.value}
       </div>
       <div>
+        <button onClick={(e) => deleteTodo(todo.id, e)}>Delete</button>
+      </div>
+      <div>
         <ArrowDownCircleFill onClick={handleClick} />
-
       </div>
       {isClicked && (
         <div>
