@@ -26,7 +26,13 @@ export default function Todo({ todo, todo_id, setTodos, todos }) {
     event.preventDefault();
     axios.put(`http://localhost:4040/todos/${todo_id}`, putData).then((res) => {
       setTodos((todos) => {
-        return [...todos, res.data];
+        return todos.map((todo) => {
+          if (todo.id === res.data.id) {
+            return res.data;
+          } else {
+            return todo;
+          }
+        });
       });
     });
   }
