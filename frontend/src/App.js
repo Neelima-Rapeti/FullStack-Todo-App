@@ -2,7 +2,8 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Form from "./Components/Form"
+import Form from "./Components/Form";
+import Todo from "./Components/Todo";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -11,7 +12,7 @@ function App() {
     const data = async () => {
       try {
         const response = await axios.get("http://localhost:4040/todos");
-       
+
         setTodos(response.data);
       } catch (err) {
         console.log(err);
@@ -22,16 +23,15 @@ function App() {
 
   return (
     <div className="App">
-
-      <h1>ToDoList🤓</h1>
-      <Form setTodos={setTodos} />
-      {todos.map((todo) => {
-        return (
-          <div key={todo.id}>
-            <p>{todo.value}</p>
-          </div>
-        );
-      })}
+      <div>
+        <h1>ToDoList🤓</h1>
+        <Form setTodos={setTodos} />
+      </div>
+      <div>
+        {todos.map((todo) => {
+          return <Todo todo={todo} todo_id={todo.id} />;
+        })}
+      </div>
     </div>
   );
 }
