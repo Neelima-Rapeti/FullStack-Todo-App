@@ -63,9 +63,8 @@ export default function Steps({ steps, step, setSteps, todoid, step_id }) {
       </div>
       <div>
         <button onClick={handleClickDone}>Done</button>
-        <button onClick={handleClickEdit}>{editButton}</button>
-        <button onClick={(e) => deleteStep(step.id, e)}>Delete</button>
 
+        <button onClick={(e) => deleteStep(step.id, e)}>Delete</button>
       </div>
     </div>
   );
