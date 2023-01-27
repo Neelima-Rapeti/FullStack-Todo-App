@@ -12,7 +12,6 @@ function App() {
     const data = async () => {
       try {
         const response = await axios.get("http://localhost:4040/todos");
-
         setTodos(response.data);
       } catch (err) {
         console.log(err);
@@ -35,6 +34,7 @@ function App() {
               todo_id={todo.id}
               setTodos={setTodos}
               todos={todos}
+              key={todo.id}
             />
           );
         })}

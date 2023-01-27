@@ -1,20 +1,18 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-import ContentEditable from "react-contenteditable";
 
 export default function Steps({ steps, step, setSteps, todoid, step_id }) {
   const [isClicked, setIsClicked] = useState(false);
-  const [editButton, setEditText] = useState("edit");
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(`${step.description}`);
   const [number, setNumber] = useState(`${step.step}`);
 
   function handleChange(e) {
     setValue(e.target.innerHTML);
   }
 
-  function handleChangeNum(event) {
-    setNumber(event.target.innerHTML);
+  function handleChangeNum(e) {
+    setNumber(e.target.innerHTML);
   }
 
   const putData = {
@@ -37,13 +35,8 @@ export default function Steps({ steps, step, setSteps, todoid, step_id }) {
     setIsClicked(!isClicked);
   };
 
-  const handleClickEdit = () => {
-    if (editButton === "edit") {
-      setEditText("save");
-    } else {
-      putStep();
-      setEditText("edit");
-    }
+  const handleBlur = () => {
+    putStep();
   };
 
   function deleteStep(id, e) {
@@ -56,12 +49,13 @@ export default function Steps({ steps, step, setSteps, todoid, step_id }) {
   return (
     <div>
       <div key={step.id}>
-        <div contentEditable onInput={handleChangeNum}>
-          {step.step}.
+        <div contentEditable onInput={handleChangeNum} onBlur={handleBlur}>
+          {step.step}
         </div>
         <div
           contentEditable
           onInput={handleChange}
+          onBlur={handleBlur}
           style={{ textDecorationLine: isClicked ? "line-through" : "none" }}
         >
           {step.description}
@@ -71,6 +65,7 @@ export default function Steps({ steps, step, setSteps, todoid, step_id }) {
         <button onClick={handleClickDone}>Done</button>
         <button onClick={handleClickEdit}>{editButton}</button>
         <button onClick={(e) => deleteStep(step.id, e)}>Delete</button>
+
       </div>
     </div>
   );
