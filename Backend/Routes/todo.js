@@ -7,6 +7,7 @@ const {
   getTodoAndSteps,
   getTodosAndSteps,
   createTodo,
+  // createTodoStep,
   updateTodo,
   deleteTodo,
 } = require("../Controller/todo");
@@ -17,11 +18,13 @@ todoRouter.get("/:id", getTodo);
 
 todoRouter.get("/:id/steps", getTodoSteps);
 
-todoRouter.get("/:id/TodoAndSteps", getTodoAndSteps);
+todoRouter.get("/:todo_id/TodoAndSteps", getTodoAndSteps);
 
 todoRouter.get("/TodosAndSteps", getTodosAndSteps);
 
 todoRouter.post("/", createTodo);
+
+// todoRouter.post("/:id/Step", createTodoStep);
 
 todoRouter.put("/:id", updateTodo);
 
