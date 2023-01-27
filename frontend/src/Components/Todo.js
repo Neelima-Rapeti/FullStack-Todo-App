@@ -53,7 +53,7 @@ export default function Todo({ todo, todo_id, setTodos, todos }) {
       }
     };
     data();
-  }, [setSteps]);
+  }, []);
 
   function deleteTodo(id, e) {
     axios.delete(`http://localhost:4040/todos/${id}`).then((res) => {
