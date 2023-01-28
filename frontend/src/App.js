@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Form from "./Components/Form";
+import FormTodo from "./Components/FormTodo";
 import Todo from "./Components/Todo";
 
 function App() {
@@ -21,23 +21,25 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <div>
-        <h1>ToDoList🤓</h1>
-        <Form setTodos={setTodos} />
-      </div>
-      <div className="todoWrapDiv">
-        {todos.map((todo) => {
-          return (
-            <Todo
-              todo={todo}
-              todo_id={todo.id}
-              setTodos={setTodos}
-              todos={todos}
-              key={todo.id}
-            />
-          );
-        })}
+    <div className="App bg-light py-5">
+      <div className="">
+        <div className="mx-auto pt-4 heading ">
+          <h1 className="headerText mb-4">My Planner</h1>
+          <FormTodo setTodos={setTodos} />
+        </div>
+        <div className="todoWrapDiv">
+          {todos.map((todo) => {
+            return (
+              <Todo
+                todo={todo}
+                todo_id={todo.id}
+                setTodos={setTodos}
+                todos={todos}
+                key={todo.id}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );
