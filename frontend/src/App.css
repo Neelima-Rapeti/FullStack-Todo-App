@@ -5,16 +5,31 @@
 .todoWrapDiv {
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 50%;
   margin: 2rem auto;
 }
 
-.icons {
-  display: flex;
-  justify-content: flex-end;
-  margin: 0.5rem;
+
+/* styling heading */
+
+.heading {
+  background-color: #264653;
+  width: 50%;
 }
 
-.todoTextDiv {
-  margin: 0 auto;
+.headerText {
+  color:  #F4A261
+}
+
+.headerIcon {
+  color: #E9C46A 
+}
+
+.todos {
+  background-color: #E9C46A;
+}
+
+.bord {
+  border: solid;
+  border-color:  #264653;
 }

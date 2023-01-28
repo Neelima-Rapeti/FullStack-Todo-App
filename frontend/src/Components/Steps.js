@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { CheckCircle } from "react-bootstrap-icons";
+import { BsTrash } from "react-icons/bs";
 
 export default function Steps({ steps, step, setSteps, todoid, step_id }) {
   const [isClicked, setIsClicked] = useState(false);
@@ -54,27 +55,35 @@ export default function Steps({ steps, step, setSteps, todoid, step_id }) {
   }
 
   return (
-    <div>
-      <div>
-        <div contentEditable onInput={handleChangeNum} onBlur={handleBlur}>
+    <div className="d-flex justify-content-between fs-6">
+      <div className="d-flex">
+        <div
+          className="pe-2"
+          contentEditable
+          onInput={handleChangeNum}
+          onBlur={handleBlur}
+          suppressContentEditableWarning={true}
+        >
           {step.step}
         </div>
         <div
           contentEditable
           onInput={handleChange}
           onBlur={handleBlur}
+          className="todoTextDiv"
           style={{ textDecorationLine: isClicked ? "line-through" : "none" }}
+          suppressContentEditableWarning={true}
         >
           {step.description}
         </div>
       </div>
-      <div>
-        <button onClick={handleClickDone}>Done</button>
-
-        <button onClick={(e) => deleteStep(step.id, e)}>Delete</button>
-      </div>
-      <div>
-        <CheckCircle onClick={handleClickDone} />
+      <div className="d-flex">
+        <div className="pe-2">
+          <CheckCircle onClick={handleClickDone} />
+        </div>
+        <div>
+          <BsTrash onClick={(e) => deleteStep(step.id, e)} />
+        </div>
       </div>
     </div>
   );

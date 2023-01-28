@@ -1,9 +1,10 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import { AiOutlinePlusCircle } from "react-icons/ai";
+import Form from "react-bootstrap/Form";
 export default function StepForm({ steps, setSteps, id }) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState([]);
   const [number, setNumber] = useState("");
 
   function handleChange(event) {
@@ -33,19 +34,29 @@ export default function StepForm({ steps, setSteps, id }) {
 
   return (
     <>
-      <form>
-        <input
-          type="number"
-          onChange={handleChangeNum}
-          placeholder="step number"
-        />
-        <input
-          type="text"
-          onChange={handleChange}
-          placeholder="enter new step"
-        />
-        <button onClick={clickHander}>ADD</button>
-      </form>
+      <Form className="d-flex align-items-center mb-3">
+        <div className="d-flex w-50">
+          <Form.Group>
+            <Form.Control
+              type="number"
+              placeholder={steps.length + 1}
+              onChange={handleChangeNum}
+            />
+          </Form.Group>
+        </div>
+        <div className="d-flex">
+          <Form.Group>
+            <Form.Control
+              type="text"
+              placeholder="Description"
+              onChange={handleChange}
+            />
+          </Form.Group>
+        </div>
+        <div className="d-flex fs-4 ms-4">
+          <AiOutlinePlusCircle onClick={clickHander} />
+        </div>
+      </Form>
     </>
   );
 }

@@ -12,14 +12,17 @@ import {
   Icon4Circle,
   Icon5Circle,
 } from "react-bootstrap-icons";
+import Moment from "react-moment";
+import { BsTrash } from "react-icons/bs";
 
 export default function Todo({ todo, todo_id, setTodos, todos }) {
   const [isClicked, setIsClicked] = useState(false);
+  const [isClickedDone, setClickedDone] = useState(false);
   const [steps, setSteps] = useState([]);
   const [value, setValue] = useState(`${todo.value}`);
   const [prio, setPrio] = useState(`${todo.priority}`);
   const [time, setTime] = useState(`${todo.deadline}`);
-  const [status, setStatus] = useState();
+  const [status, setStatus] = useState(`${todo.status}`);
 
   function handleChange(e) {
     setValue(e.target.innerHTML);
@@ -69,6 +72,8 @@ export default function Todo({ todo, todo_id, setTodos, todos }) {
   };
 
   const handleClickDone = () => {
+    console.log("click done todo");
+    setClickedDone(!isClickedDone);
     setStatus(!status);
     putTodo();
   };
@@ -95,59 +100,78 @@ export default function Todo({ todo, todo_id, setTodos, todos }) {
     });
   }
   return (
-    <div className="icons">
-      {todo.priority === 1 && <Icon1Circle />}
-      {todo.priority === 2 && <Icon2Circle />}
-      {todo.priority === 3 && <Icon3Circle />}
-      {todo.priority === 4 && <Icon4Circle />}
-      {todo.priority === 5 && <Icon5Circle />}
-      <div
-        contentEditable
-        onInput={handleChange}
-        onBlur={handleBlur}
-        className="todoTextDiv"
-      >
-        {todo.value}
-      </div>
-
-      <div>
-        <button onClick={(e) => deleteTodo(todo.id, e)}>Delete</button>
-      </div>
-      <div>
-        <ArrowDownCircleFill onClick={handleClick} />
-      </div>
-      <div>
-        <CheckCircle onClick={handleClickDone} />
-      </div>
-
-      {isClicked && (
-        <div>
-          <div contentEditable onInput={handleChangePrio} onBlur={handleBlur}>
-            {todo.priority}
+    <div className="m-2">
+      <div className="d-flex justify-content-between fs-5">
+        <div className="d-flex">
+          <div className="pe-2">
+            {todo.priority === 1 && <Icon1Circle className="text-danger" />}
+            {todo.priority === 2 && <Icon2Circle className="text-warning" />}
+            {todo.priority === 3 && <Icon3Circle className="text-success" />}
+            {todo.priority === 4 && <Icon4Circle className="text-primary" />}
+            {todo.priority === 5 && <Icon5Circle className="" />}
           </div>
-          <div contentEditable onInput={handleChangeTime} onBlur={handleBlur}>
-            {todo.deadline.substring(0, 10)} at{" "}
-            {todo.deadline.substring(11, 19)}
-          </div>
-          <div>
-            <StepForm steps={steps} setSteps={setSteps} id={todo_id} />
-          </div>
-          <div>
-            {steps.map((step) => {
-              return (
-                <Steps
-                  steps={steps}
-                  step={step}
-                  setSteps={setSteps}
-                  todoid={todo_id}
-                  step_id={step.id}
-                  key={step.id}
-                />
-              );
-            })}
+          <div
+            contentEditable
+            onInput={handleChange}
+            onBlur={handleBlur}
+            suppressContentEditableWarning={true}
+            style={{
+              textDecorationLine: isClickedDone ? "line-through" : "none",
+            }}
+          >
+            {todo.value}
           </div>
         </div>
-      )}
+        <div className="d-flex">
+          <div className="pe-2">
+            <ArrowDownCircleFill onClick={handleClick} />
+          </div>
+          <div className="pe-2">
+            <CheckCircle onClick={handleClickDone} />
+          </div>
+          <div>
+            <BsTrash onClick={(e) => deleteTodo(todo.id, e)} />
+          </div>
+        </div>
+      </div>
+      <div className="bord my-2">
+        {isClicked && (
+          <div className="fs-6 w-75 mx-auto">
+            {/* <div
+              contentEditable
+              onInput={handleChangePrio}
+              onBlur={handleBlur}
+              suppressContentEditableWarning={true}
+            >
+              {todo.priority}
+            </div> */}
+            <p className="mt-2">
+              Deadline{" "}
+              <Moment fromNow className="date fs-6">
+                {todo.deadline}
+              </Moment>
+            </p>
+
+            <div>
+              <StepForm steps={steps} setSteps={setSteps} id={todo_id} />
+            </div>
+            <div>
+              {steps.map((step) => {
+                return (
+                  <Steps
+                    steps={steps}
+                    step={step}
+                    setSteps={setSteps}
+                    todoid={todo_id}
+                    step_id={step.id}
+                    key={step.id}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
