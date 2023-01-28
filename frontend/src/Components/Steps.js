@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import { CheckCircle } from "react-bootstrap-icons";
 
 export default function Steps({ steps, step, setSteps, todoid, step_id }) {
   const [isClicked, setIsClicked] = useState(false);
@@ -23,10 +24,16 @@ export default function Steps({ steps, step, setSteps, todoid, step_id }) {
     todo_id: todoid,
   };
 
-  function putStep(event) {
+  function putStep() {
     axios.put(`http://localhost:4040/steps/${step_id}`, putData).then((res) => {
       setSteps((steps) => {
-        return [...steps, res.data];
+        return steps.map((step) => {
+          if (step.id === res.data.id) {
+            return res.data;
+          } else {
+            return step;
+          }
+        });
       });
     });
   }
@@ -48,7 +55,7 @@ export default function Steps({ steps, step, setSteps, todoid, step_id }) {
 
   return (
     <div>
-      <div key={step.id}>
+      <div>
         <div contentEditable onInput={handleChangeNum} onBlur={handleBlur}>
           {step.step}
         </div>
@@ -65,6 +72,9 @@ export default function Steps({ steps, step, setSteps, todoid, step_id }) {
         <button onClick={handleClickDone}>Done</button>
 
         <button onClick={(e) => deleteStep(step.id, e)}>Delete</button>
+      </div>
+      <div>
+        <CheckCircle onClick={handleClickDone} />
       </div>
     </div>
   );

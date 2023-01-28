@@ -26,7 +26,7 @@ function App() {
         <h1>ToDoList🤓</h1>
         <Form setTodos={setTodos} />
       </div>
-      <div>
+      <div className="todoWrapDiv">
         {todos.map((todo) => {
           return (
             <Todo
