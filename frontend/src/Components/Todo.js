@@ -130,7 +130,12 @@ export default function Todo({ todo, todo_id, setTodos, todos }) {
             <CheckCircle onClick={handleClickDone} />
           </div>
           <div>
-            <BsTrash onClick={(e) => deleteTodo(todo.id, e)} />
+            <BsTrash
+              onClick={(e) => {
+                if (window.confirm(`You want to delete ${todo.value}?`))
+                  deleteTodo(todo.id, e);
+              }}
+            />
           </div>
         </div>
       </div>

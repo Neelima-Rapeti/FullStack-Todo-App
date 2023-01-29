@@ -82,7 +82,12 @@ export default function Steps({ steps, step, setSteps, todoid, step_id }) {
           <CheckCircle onClick={handleClickDone} />
         </div>
         <div>
-          <BsTrash onClick={(e) => deleteStep(step.id, e)} />
+          <BsTrash
+            onClick={(e) => {
+              if (window.confirm(`You want to delete ${step.description}?`))
+                deleteStep(step.id, e);
+            }}
+          />
         </div>
       </div>
     </div>
