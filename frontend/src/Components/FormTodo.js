@@ -1,10 +1,13 @@
 import axios from "axios";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { BsCalendar2PlusFill } from "react-icons/bs";
-function FormTodo({ setTodos }) {
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+function FormTodo({ setTodos, todos }) {
   const [value, setValue] = useState("");
   const [prio, setPrio] = useState("");
   const [finishDate, setFinishDate] = useState("");
@@ -33,8 +36,10 @@ function FormTodo({ setTodos }) {
   function clickHander() {
     axios.post("http://localhost:4040/todos", postData).then((res) => {
       setTodos((todos) => {
-        return [...todos, res.data];
+        return [res.data, ...todos];
       });
+
+      toast.success("Success! Todo was added.");
     });
   }
 
@@ -70,7 +75,7 @@ function FormTodo({ setTodos }) {
                 <Form.Control
                   type="text"
                   onChange={handleChangeValue}
-                  placeholder="..."
+                  placeholder=".."
                 />
               </Form.Group>
 
@@ -80,7 +85,7 @@ function FormTodo({ setTodos }) {
                 </Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="..."
+                  placeholder=".."
                   onChange={handleChangeFinishDate}
                   onFocus={(e) => (e.target.type = "datetime-local")}
                   onBlur={(e) => (e.target.type = "text")}

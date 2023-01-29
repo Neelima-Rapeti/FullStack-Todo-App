@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { CheckCircle } from "react-bootstrap-icons";
 import { BsTrash } from "react-icons/bs";
+import { toast } from "react-toastify";
 
 export default function Steps({ steps, step, setSteps, todoid, step_id }) {
   const [isClicked, setIsClicked] = useState(false);
@@ -36,6 +37,8 @@ export default function Steps({ steps, step, setSteps, todoid, step_id }) {
           }
         });
       });
+
+      toast.success("Successfully updated step");
     });
   }
 

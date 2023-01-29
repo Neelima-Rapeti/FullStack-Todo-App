@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import Form from "react-bootstrap/Form";
+import { toast } from "react-toastify";
 export default function StepForm({ steps, setSteps, id }) {
   const [value, setValue] = useState([]);
   const [number, setNumber] = useState("");
@@ -29,6 +30,8 @@ export default function StepForm({ steps, setSteps, id }) {
       setSteps((steps) => {
         return [...steps, res.data];
       });
+
+      toast.success("Success! Step was added.");
     });
   }
 
