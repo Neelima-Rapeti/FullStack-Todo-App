@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import FormTodo from "./Components/FormTodo";
 import Todo from "./Components/Todo";
-
+import { ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 function App() {
   const [todos, setTodos] = useState([]);
 
@@ -41,6 +42,7 @@ function App() {
           })}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
