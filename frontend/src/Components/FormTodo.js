@@ -33,9 +33,10 @@ function FormTodo({ setTodos }) {
   function clickHander() {
     axios.post("http://localhost:4040/todos", postData).then((res) => {
       setTodos((todos) => {
-        return [...todos, res.data];
+        return [res.data, ...todos];
       });
     });
+    
   }
 
   const addForm = () => {
