@@ -9,6 +9,7 @@ export default function Steps({ steps, step, setSteps, todoid, step_id }) {
   const [isClicked, setIsClicked] = useState(false);
   const [value, setValue] = useState(`${step.description}`);
   const [number, setNumber] = useState(`${step.step}`);
+  const [statuuus, setStatuuus] = useState(`${step.status}`);
 
   function handleChange(e) {
     setValue(e.target.innerHTML);
@@ -21,7 +22,7 @@ export default function Steps({ steps, step, setSteps, todoid, step_id }) {
   const putData = {
     description: value,
     step: number,
-    status: false,
+    status: statuuus,
     created_at: new Date(),
     todo_id: todoid,
   };
@@ -42,8 +43,13 @@ export default function Steps({ steps, step, setSteps, todoid, step_id }) {
     });
   }
 
+  const changeStatus = () => {
+    setStatuuus(!statuuus);
+  };
+
   const handleClickDone = () => {
-    setIsClicked(!isClicked);
+    changeStatus();
+    putStep();
   };
 
   const handleBlur = () => {
@@ -74,7 +80,7 @@ export default function Steps({ steps, step, setSteps, todoid, step_id }) {
           onInput={handleChange}
           onBlur={handleBlur}
           className="todoTextDiv"
-          style={{ textDecorationLine: isClicked ? "line-through" : "none" }}
+          style={{ textDecorationLine: step.status ? "line-through" : "none" }}
           suppressContentEditableWarning={true}
         >
           {step.description}
@@ -82,7 +88,10 @@ export default function Steps({ steps, step, setSteps, todoid, step_id }) {
       </div>
       <div className="d-flex">
         <div className="pe-2">
-          <CheckCircle onClick={handleClickDone} />
+          <CheckCircle
+            onClick={handleClickDone}
+            style={{ color: step.status ? "green" : "black" }}
+          />
         </div>
         <div>
           <BsTrash
