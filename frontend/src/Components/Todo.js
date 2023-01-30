@@ -3,9 +3,9 @@ import Steps from "./Steps";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import StepForm from "./StepForm";
-import { ArrowDownCircleFill } from "react-bootstrap-icons";
+import { ArrowDownCircle } from "react-bootstrap-icons";
 import {
-  CheckCircle,
+  CheckCircleFill,
   Icon1Circle,
   Icon2Circle,
   Icon3Circle,
@@ -14,6 +14,7 @@ import {
 } from "react-bootstrap-icons";
 import Moment from "react-moment";
 import { BsTrash } from "react-icons/bs";
+import { FcAlarmClock } from "react-icons/fc";
 
 export default function Todo({ todo, todo_id, setTodos, todos }) {
   const [isClicked, setIsClicked] = useState(false);
@@ -22,7 +23,7 @@ export default function Todo({ todo, todo_id, setTodos, todos }) {
   const [value, setValue] = useState(`${todo.value}`);
   const [prio, setPrio] = useState(`${todo.priority}`);
   const [time, setTime] = useState(`${todo.deadline}`);
-  const [status, setStatus] = useState(`${todo.status}`);
+  const [statuuus, setStatuuus] = useState(`${todo.status}`);
 
   function handleChange(e) {
     setValue(e.target.innerHTML);
@@ -32,19 +33,9 @@ export default function Todo({ todo, todo_id, setTodos, todos }) {
     setPrio(e.target.innerHTML);
   }
 
-  function handleChangeTime(e) {
-    setTime(
-      e.target.innerHTML.substring(0, 10) +
-        "T" +
-        e.target.innerHTML.substring(14, 22) +
-        ".000Z"
-    );
-    console.log(time);
-  }
-
   const putData = {
     value: value,
-    status: status,
+    status: statuuus,
     deadline: time,
     priority: prio,
     created_at: new Date(),
@@ -71,10 +62,12 @@ export default function Todo({ todo, todo_id, setTodos, todos }) {
     putTodo();
   };
 
+  const changeStatus = () => {
+    setStatuuus(!statuuus);
+  };
+
   const handleClickDone = () => {
-    console.log("click done todo");
-    setClickedDone(!isClickedDone);
-    setStatus(!status);
+    changeStatus();
     putTodo();
   };
 
@@ -99,6 +92,12 @@ export default function Todo({ todo, todo_id, setTodos, todos }) {
       setTodos(deltodos);
     });
   }
+
+  let currentDateObj = new Date();
+  let numberOfMlSeconds = currentDateObj.getTime();
+  let addMlSeconds = 60 * 60 * 1000;
+  let newDateObj = new Date(numberOfMlSeconds + addMlSeconds).toISOString();
+
   return (
     <div className="m-2">
       <div className="d-flex justify-content-between fs-5">
@@ -116,18 +115,26 @@ export default function Todo({ todo, todo_id, setTodos, todos }) {
             onBlur={handleBlur}
             suppressContentEditableWarning={true}
             style={{
-              textDecorationLine: isClickedDone ? "line-through" : "none",
+              textDecorationLine: todo.status ? "line-through" : "none",
             }}
           >
             {todo.value}
           </div>
+          {todo.deadline < newDateObj && (
+            <div>
+              <FcAlarmClock />
+            </div>
+          )}
         </div>
         <div className="d-flex">
           <div className="pe-2">
-            <ArrowDownCircleFill onClick={handleClick} />
+            <ArrowDownCircle onClick={handleClick} />
           </div>
           <div className="pe-2">
-            <CheckCircle onClick={handleClickDone} />
+            <CheckCircleFill
+              onClick={handleClickDone}
+              style={{ color: todo.status ? "green" : "black" }}
+            />
           </div>
           <div>
             <BsTrash

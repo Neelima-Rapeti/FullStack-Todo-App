@@ -1,5 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+
 * {
   text-align: center;
+}
+
+.headerText {
+  font-family: "Righteous";
+  letter-spacing: 0.2rem;
 }
 
 .todoWrapDiv {
@@ -9,7 +16,6 @@
   margin: 2rem auto;
 }
 
-
 /* styling heading */
 
 .heading {
@@ -18,18 +24,18 @@
 }
 
 .headerText {
-  color:  #F4A261
+  color: #f4a261;
 }
 
 .headerIcon {
-  color: #E9C46A 
+  color: #e9c46a;
 }
 
 .todos {
-  background-color: #E9C46A;
+  background-color: #e9c46a;
 }
 
 .bord {
   border: solid;
-  border-color:  #264653;
+  border-color: #264653;
 }
